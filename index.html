@@ -584,6 +584,13 @@
                 <div class="chip" onclick="setStatusFilter('STATUS_N', this)">Status N</div>
             </div>
         </div>
+
+        <div class="filter-row">
+            <span class="filter-label">RSO:</span>
+            <select id="rsoFilter" class="search-input" style="width:100%; padding:9px 12px; border-radius:12px;" onchange="setRSOFilter(this.value)">
+                <option value="ALL">All RSOs</option>
+            </select>
+        </div>
     </div>
 
     <div class="search-box">
@@ -728,14 +735,59 @@
     let currentLat = null, currentLon = null, currentAccuracy = 0, currentHeading = 0;
     let targetRadius = 50;
     let statusFilter = 'ALL';
+    let selectedRSO = 'ALL';
     let activeView = 'list';
+
+    // Monthly visit history is kept separately from the retailer CSV/database.
+    const VISIT_STORAGE_PREFIX = 'outlet_ultra_visits_';
+    function currentVisitMonth() {
+        const d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
+    function visitStorageKey() { return VISIT_STORAGE_PREFIX + currentVisitMonth(); }
+    function readVisitHistory() {
+        try { return JSON.parse(localStorage.getItem(visitStorageKey()) || '{}') || {}; }
+        catch (e) { return {}; }
+    }
+    function saveVisitHistory() {
+        const history = {};
+        retailers.forEach(r => {
+            if (r.visited) history[r.code] = { visited: true, visitedAt: r.visitedAt || null };
+        });
+        try { localStorage.setItem(visitStorageKey(), JSON.stringify(history)); }
+        catch (e) { showToast('Could not save visit history: browser storage full'); }
+    }
+    function applyVisitHistory() {
+        const history = readVisitHistory();
+        retailers.forEach(r => {
+            const saved = history[r.code];
+            r.visited = !!(saved && saved.visited);
+            r.visitedAt = r.visited ? (saved.visitedAt || null) : null;
+        });
+    }
+    function refreshRSOFilter() {
+        const select = document.getElementById('rsoFilter');
+        if (!select) return;
+        const rsos = [...new Set(retailers.map(r => String(r.rsoCode || '').trim()).filter(v => v && v !== 'N/A'))]
+            .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+        select.innerHTML = '<option value="ALL">All RSOs</option>' +
+            rsos.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+        if (!rsos.includes(selectedRSO)) selectedRSO = 'ALL';
+        select.value = selectedRSO;
+    }
+    function setRSOFilter(value) {
+        selectedRSO = value || 'ALL';
+        updateNearbyList();
+        updateCounters();
+        if (activeView === 'map') updateMapView();
+    }
 
     let map = null, userMarker = null, userAccuracyCircle = null, storeClusterLayer = null;
     let radiusCircle = null; 
     let activePopupMarker = null, popupTimer = null, osrmPolyline = null;
     let activeNoteStoreCode = null, tempPhotoBase64 = null;
 
-    const GITHUB_CSV_URL = "https://raw.githubusercontent.com/tanjilahsan64-ux/Outlet-Nearby/refs/heads/main/retailers.csv";
+    const GITHUB_CSV_URL = "https://raw.githubusercontent.com/tanjilahsan64-ux/Route-Wise-Outlet/refs/heads/main/retailers.csv";
 
     function loadOutletsFromStorage() {
         try {
@@ -744,6 +796,8 @@
                 const parsed = JSON.parse(backup);
                 if (parsed && parsed.length > 0) {
                     retailers = parsed;
+                    applyVisitHistory();
+                    refreshRSOFilter();
                     updateCounters();
                     updateNearbyList();
                     updateAnalyticsDisplay();
@@ -1049,7 +1103,8 @@
         let lonIdx = headers.findIndex(h => h.includes('lon') || h.includes('lng'));
 
         const existingMap = new Map();
-        retailers.forEach(r => existingMap.set(r.code, { visited: r.visited, visitedAt: r.visitedAt, notes: r.notes, photo: r.photo }));
+        retailers.forEach(r => existingMap.set(r.code, { notes: r.notes, photo: r.photo }));
+        const visitHistory = readVisitHistory();
 
         const parsedRetailers = [];
         for (let i = 1; i < lines.length; i++) {
@@ -1058,15 +1113,18 @@
             const cols = parseCSVLine(line);
             if (cols.length < 3) continue;
 
-            let retailerCode = '';
-            for (let c = 0; c < cols.length; c++) {
-                if (/^R\d{5,7}$/i.test(cols[c].trim())) {
-                    retailerCode = cols[c].trim().toUpperCase();
-                    break;
-                }
+            // Repository format: first column Retail Code, second column RSO Code.
+            let retailerCode = (cols[0] || '').trim().toUpperCase();
+            if (!/^R\w+$/i.test(retailerCode)) {
+                const codeIdx = headers.findIndex(h => h.includes('retail') && (h.includes('code') || h.includes('id')));
+                retailerCode = codeIdx >= 0 ? (cols[codeIdx] || '').trim().toUpperCase() : '';
             }
-            if (!retailerCode && cols[2]) retailerCode = cols[2].trim();
-            const rsoCode = cols[1] ? cols[1].trim() : 'N/A';
+            if (!retailerCode) {
+                const found = cols.find(v => /^R\d{5,8}$/i.test((v || '').trim()));
+                retailerCode = found ? found.trim().toUpperCase() : '';
+            }
+            const rsoIdx = headers.findIndex(h => h.includes('rso'));
+            const rsoCode = (cols[rsoIdx >= 0 ? rsoIdx : 1] || 'N/A').trim();
             let statusVal = cols[7] ? cols[7].trim().toUpperCase() : (cols.length >= 8 ? cols[cols.length - 1].trim().toUpperCase() : 'N/A');
 
             let lat = parseFloat(cols[latIdx !== -1 ? latIdx : 5]);
@@ -1082,14 +1140,15 @@
 
             if (!isNaN(lat) && !isNaN(lon) && retailerCode) {
                 const prev = existingMap.get(retailerCode) || {};
-                parsedRetailers.push({ 
-                    code: retailerCode, 
-                    rsoCode: rsoCode, 
-                    lat: lat, 
-                    lon: lon, 
+                const savedVisit = visitHistory[retailerCode];
+                parsedRetailers.push({
+                    code: retailerCode,
+                    rsoCode: rsoCode,
+                    lat: lat,
+                    lon: lon,
                     status: statusVal,
-                    visited: prev.visited || false,
-                    visitedAt: prev.visitedAt || null,
+                    visited: !!(savedVisit && savedVisit.visited),
+                    visitedAt: savedVisit && savedVisit.visitedAt ? savedVisit.visitedAt : null,
                     notes: prev.notes || '',
                     photo: prev.photo || null
                 });
@@ -1097,7 +1156,9 @@
         }
 
         retailers = parsedRetailers;
+        refreshRSOFilter();
         if (overwriteStorage) saveAllOutletsToDB();
+        saveVisitHistory();
         updateCounters();
         updateNearbyList();
         updateAnalyticsDisplay();
@@ -1142,6 +1203,7 @@
         const nearby = [];
 
         for (const item of retailers) {
+            if (selectedRSO !== 'ALL' && String(item.rsoCode) !== selectedRSO) continue;
             const dist = (currentLat && currentLon) ? getDistanceMeters(currentLat, currentLon, item.lat, item.lon) : 999999;
 
             if (statusFilter === 'PLANNED' && !plannedTargetCodes.includes(item.code)) continue;
@@ -1332,6 +1394,7 @@
         item.visited = !item.visited;
         item.visitedAt = item.visited ? nowIso : null;
 
+        saveVisitHistory();
         saveAllOutletsToDB();
         updateCounters();
         updateRouteBanner();
@@ -1527,9 +1590,8 @@
             retailers.forEach(item => {
                 item.visited = false;
                 item.visitedAt = null;
-                item.notes = "";
-                item.photo = null;
             });
+            try { localStorage.removeItem(visitStorageKey()); } catch (e) {}
             plannedTargetCodes = [];
             saveAllOutletsToDB();
             if (osrmPolyline && map) map.removeLayer(osrmPolyline);
@@ -1553,9 +1615,10 @@
     }
 
     function updateCounters() {
-        const visitedCount = retailers.filter(r => r.visited).length;
-        document.getElementById('retailerCount').innerText = `${retailers.length} Outlets`;
-        document.getElementById('visitedCount').innerText = `${visitedCount} visited (${retailers.length - visitedCount} unvisited)`;
+        const scoped = selectedRSO === 'ALL' ? retailers : retailers.filter(r => String(r.rsoCode) === selectedRSO);
+        const visitedCount = scoped.filter(r => r.visited).length;
+        document.getElementById('retailerCount').innerText = `${scoped.length} Outlets`;
+        document.getElementById('visitedCount').innerText = `${visitedCount} visited (${scoped.length - visitedCount} unvisited)`;
     }
 
     let toastTimer;
