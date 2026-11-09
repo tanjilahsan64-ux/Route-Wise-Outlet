@@ -16,23 +16,23 @@
 
     <style>
         :root {
-            --bg-dark: #0c0907;
-            --surface-glass: rgba(24, 18, 14, 0.8);
-            --surface-card: rgba(35, 26, 20, 0.85);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(245, 158, 11, 0.25);
+            --bg-dark: #f4f6fa;
+            --surface-glass: rgba(255, 255, 255, 0.94);
+            --surface-card: #ffffff;
+            --border-glass: #e7eaf0;
+            --border-highlight: rgba(249, 115, 22, 0.28);
             
-            --primary: #f59e0b;
-            --primary-glow: rgba(245, 158, 11, 0.3);
-            --accent-orange: #f97316;
-            --accent-green: #10b981;
-            --accent-green-glow: rgba(16, 185, 129, 0.25);
-            --accent-rose: #f43f5e;
-            --accent-cyan: #06b6d4;
+            --primary: #f97316;
+            --primary-glow: rgba(249, 115, 22, 0.16);
+            --accent-orange: #ea580c;
+            --accent-green: #059669;
+            --accent-green-glow: rgba(5, 150, 105, 0.16);
+            --accent-rose: #e11d48;
+            --accent-cyan: #0891b2;
             
-            --text-primary: #fef3c7;
-            --text-secondary: #d6d3d1;
-            --text-muted: #78716c;
+            --text-primary: #172033;
+            --text-secondary: #647084;
+            --text-muted: #8993a4;
         }
 
         * {
@@ -43,15 +43,16 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--bg-dark);
+            background: #f4f6fa;
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(245, 158, 11, 0.15) 0px, transparent 55%),
-                radial-gradient(circle at 90% 90%, rgba(249, 115, 22, 0.1) 0px, transparent 55%);
-            background-attachment: fixed;
+                radial-gradient(circle at 8% 0%, rgba(249, 115, 22, 0.08), transparent 28rem),
+                radial-gradient(circle at 100% 30%, rgba(14, 165, 233, 0.045), transparent 30rem);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-bottom: 95px;
+            padding-bottom: 112px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -59,279 +60,294 @@
 
         header {
             width: 100%;
-            max-width: 560px;
-            padding: 16px 20px;
+            padding: 14px max(20px, calc((100vw - 920px) / 2));
             position: sticky;
             top: 0;
             z-index: 500;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(12, 9, 7, 0.85);
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            background: rgba(255, 255, 255, 0.88);
+            border-bottom: 1px solid #e8ebf1;
+            box-shadow: 0 4px 22px rgba(24, 39, 75, 0.045);
         }
 
         .header-top {
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand { display: flex; align-items: center; gap: 12px; }
 
         .brand-icon {
-            width: 38px; height: 38px;
+            width: 42px; height: 42px;
             border-radius: 14px;
-            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            background: linear-gradient(145deg, #fb923c, #ea580c);
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 7px 18px rgba(234, 88, 12, 0.22);
         }
 
-        .brand-icon svg { width: 18px; height: 18px; stroke: #0c0907; stroke-width: 2.5; }
+        .brand-icon svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2.5; }
 
         h1 {
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             font-weight: 800;
-            letter-spacing: -0.01em;
-            background: linear-gradient(135deg, #fff 0%, #fbbf24 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.035em;
+            color: #172033;
         }
 
         .header-actions { display: flex; align-items: center; gap: 6px; }
 
         .btn-header {
-            background: rgba(245, 158, 11, 0.1);
-            color: #fcd34d;
-            border: 1px solid rgba(245, 158, 11, 0.25);
-            padding: 6px 10px;
+            background: #fff;
+            color: #475569;
+            border: 1px solid #e5e9f0;
+            padding: 8px 12px;
             border-radius: 12px;
-            font-size: 0.72rem;
+            font-size: 0.73rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 5px;
+            box-shadow: 0 2px 5px rgba(15, 23, 42, 0.035);
             transition: all 0.2s ease;
         }
 
         .btn-header:hover {
-            background: rgba(245, 158, 11, 0.22);
-            border-color: var(--primary);
-            color: #fff;
+            background: #fff7ed;
+            border-color: #fdba74;
+            color: #c2410c;
+            transform: translateY(-1px);
         }
 
         .btn-plan {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(249, 115, 22, 0.2) 100%);
-            color: #fbbf24;
-            border-color: rgba(245, 158, 11, 0.4);
+            background: #fff7ed;
+            color: #c2410c;
+            border-color: #fed7aa;
         }
 
         .gps-status-pill {
             display: flex; align-items: center; gap: 6px;
-            padding: 5px 10px; border-radius: 20px;
-            background: rgba(24, 18, 14, 0.7);
-            border: 1px solid var(--border-glass);
-            font-size: 0.7rem; font-weight: 600;
-            color: var(--text-secondary);
+            padding: 5px 9px; border-radius: 20px;
+            background: #f8fafc;
+            border: 1px solid #e8edf3;
+            font-size: 0.68rem; font-weight: 600;
+            color: #647084;
         }
 
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-rose); }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; }
         .status-dot.active { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
 
         input[type="file"] { display: none; }
 
         .container {
-            width: 100%; max-width: 560px;
-            padding: 16px 20px; display: flex;
-            flex-direction: column; gap: 14px;
+            width: 100%; max-width: 920px;
+            padding: 22px 20px; display: flex;
+            flex-direction: column; gap: 16px;
         }
 
         .route-banner {
             display: none;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: linear-gradient(120deg, #fff7ed, #fff);
+            border: 1px solid #fed7aa;
             border-radius: 18px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 5px 18px rgba(194, 65, 12, 0.06);
         }
 
         .route-banner-info { display: flex; flex-direction: column; gap: 2px; }
-        .route-banner-title { font-size: 0.82rem; font-weight: 800; color: #fbbf24; }
-        .route-banner-sub { font-size: 0.7rem; color: var(--text-secondary); }
+        .route-banner-title { font-size: 0.82rem; font-weight: 800; color: #c2410c; }
+        .route-banner-sub { font-size: 0.7rem; color: #647084; }
         .route-banner-actions { display: flex; gap: 8px; }
 
-        .glass-card-compact {
-            background: var(--surface-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 22px; padding: 16px;
+        .glass-card-compact, .analytics-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid #e8ebf1;
+            border-radius: 20px; padding: 17px;
             display: flex; flex-direction: column; gap: 12px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 28px rgba(23, 32, 51, 0.055);
         }
+
+        .analytics-card {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .analytics-side { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+        .analytics-side.right { text-align: right; border-left: 1px solid #edf0f4; padding-left: 16px; }
+
+        .analytics-label { font-size: 0.66rem; color: #8993a4; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .analytics-value { font-size: 1.18rem; font-weight: 800; color: #172033; font-variant-numeric: tabular-nums; }
+        .analytics-sub { font-size: 0.65rem; color: #ea580c; font-weight: 700; }
 
         .view-toggle-bar {
             display: flex;
-            background: rgba(12, 9, 7, 0.6);
-            padding: 4px; border-radius: 14px;
-            border: 1px solid var(--border-glass);
-            gap: 4px;
+            background: #f1f3f7;
+            padding: 4px; border-radius: 13px;
+            border: 1px solid #e9edf3; gap: 4px;
         }
 
         .tab-btn {
-            flex: 1; padding: 8px 0; border: none;
-            background: transparent; color: var(--text-muted);
+            flex: 1; padding: 10px 8px; border: none;
+            background: transparent; color: #7b8494;
             font-size: 0.78rem; font-weight: 700; border-radius: 10px;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             gap: 6px; transition: all 0.25s ease;
         }
 
         .tab-btn svg { width: 14px; height: 14px; stroke: currentColor; }
-        .tab-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--accent-orange) 100%); color: #0c0907; box-shadow: 0 4px 15px var(--primary-glow); font-weight: 800; }
+        .tab-btn.active {
+            color: #fff;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            box-shadow: 0 5px 12px rgba(234, 88, 12, 0.2);
+            font-weight: 800;
+        }
 
-        .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-        .filter-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .filter-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+        .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
+        .filter-label { font-size: 0.72rem; color: #7b8494; font-weight: 700; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; min-width: 54px; }
+        .filter-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
         .filter-chips::-webkit-scrollbar { display: none; }
 
         .chip {
-            padding: 6px 12px; border-radius: 16px;
-            background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-glass);
-            font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
+            padding: 7px 12px; border-radius: 999px;
+            background: #f8fafc; border: 1px solid #e8edf3;
+            font-size: 0.72rem; font-weight: 600; color: #596579;
             cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
         }
 
-        .chip.active { background: var(--primary); border-color: var(--primary); color: #0c0907; font-weight: 800; box-shadow: 0 3px 10px var(--primary-glow); }
-        .chip.target-chip { border-color: rgba(245, 158, 11, 0.4); }
-        .chip.target-chip.active { background: var(--accent-orange); border-color: var(--accent-orange); color: #fff; }
+        .chip:hover { border-color: #fdba74; background: #fff7ed; color: #c2410c; }
+        .chip.active { background: #fff0e5; border-color: #fdba74; color: #c2410c; font-weight: 800; box-shadow: none; }
+        .chip.target-chip.active { background: #ea580c; border-color: #ea580c; color: #fff; }
 
         .search-box { position: relative; }
 
         .search-input {
-            width: 100%; padding: 12px 16px 12px 42px;
-            background: var(--surface-card); border: 1px solid var(--border-glass);
-            border-radius: 16px; color: var(--text-primary); font-size: 0.85rem; outline: none;
+            width: 100%; padding: 13px 16px 13px 42px;
+            background: #fff; border: 1px solid #e5e9f0;
+            border-radius: 14px; color: #172033; font-size: 0.85rem; outline: none;
             transition: all 0.25s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 12px rgba(23, 32, 51, 0.035);
         }
 
-        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow), inset 0 2px 4px rgba(0,0,0,0.3); }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--text-muted); }
+        .search-input::placeholder { color: #a0a8b5; }
+        .search-input:focus { border-color: #fb923c; box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.11); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: #98a2b3; }
+
+        #retailerList { display: grid; grid-template-columns: 1fr; gap: 11px; }
 
         .outlet-card {
-            background: var(--surface-card); border: 1px solid var(--border-glass);
-            border-radius: 18px; padding: 16px; margin-bottom: 12px;
+            background: #fff; border: 1px solid #e8ebf1;
+            border-radius: 17px; padding: 17px; margin: 0;
             position: relative; overflow: hidden; transition: transform 0.2s ease, background 0.3s ease;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 4px 15px rgba(23, 32, 51, 0.045);
+            animation: cardEnter 0.32s ease both;
         }
 
         .outlet-card:active { transform: scale(0.988); }
-        .outlet-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
-        .outlet-card.visited { background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.25); }
-        .outlet-card.visited::before { background: var(--accent-green); }
-        .outlet-card.target-planned { border: 1px solid rgba(245, 158, 11, 0.4); }
-        .outlet-card.target-planned::before { background: var(--accent-orange); }
+        .outlet-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #f97316; }
+        .outlet-card.visited { background: #f3fbf7; border-color: #ccefe0; }
+        .outlet-card.visited::before { background: #059669; }
+        .outlet-card.target-planned { border-color: #fdba74; background: #fffaf5; }
 
         .outlet-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
         .outlet-code-row { display: flex; align-items: center; gap: 8px; }
-        .outlet-code { font-size: 1.05rem; font-weight: 800; color: #fbbf24; letter-spacing: -0.01em; }
+        .outlet-code { font-size: 1.02rem; font-weight: 800; color: #c2410c; letter-spacing: -0.01em; }
 
         .target-order-badge {
-            background: var(--accent-orange); color: #fff;
+            background: #ea580c; color: #fff;
             font-size: 0.65rem; font-weight: 800; padding: 3px 8px;
             border-radius: 20px; text-transform: uppercase;
         }
 
         .visited-badge {
-            background: var(--accent-green); color: #06110d;
+            background: #059669; color: #fff;
             font-size: 0.65rem; font-weight: 800; padding: 3px 8px;
             border-radius: 20px; text-transform: uppercase;
         }
 
-        .rso-text { font-size: 0.75rem; color: var(--text-secondary); }
-        .rso-text strong { color: var(--text-primary); }
+        .rso-text { font-size: 0.75rem; color: #647084; }
+        .rso-text strong { color: #344054; }
 
         .dist-pill {
             display: inline-flex; align-items: center; gap: 4px;
-            background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-green-glow);
-            color: #34d399; padding: 5px 9px; border-radius: 10px; font-size: 0.72rem; font-weight: 700;
+            background: #ecfdf5; border: 1px solid #ccefe0;
+            color: #047857; padding: 5px 9px; border-radius: 10px; font-size: 0.72rem; font-weight: 700;
         }
 
         .status-tag { font-size: 0.65rem; font-weight: 700; padding: 4px 9px; border-radius: 8px; letter-spacing: 0.5px; }
-        .status-y { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .status-n { background: rgba(244, 63, 94, 0.15); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.3); }
+        .status-y { background: #ecfdf5; color: #047857; border: 1px solid #ccefe0; }
+        .status-n { background: #fff1f2; color: #be123c; border: 1px solid #ffe0e5; }
 
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
-            margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-glass); gap: 8px;
+            margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf0f4; gap: 8px;
         }
 
         .check-container {
             display: flex; align-items: center; gap: 8px;
-            font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); cursor: pointer;
+            font-size: 0.78rem; font-weight: 600; color: #596579; cursor: pointer;
         }
 
         .custom-check {
             width: 18px; height: 18px; border-radius: 6px;
-            border: 2px solid var(--border-highlight); display: flex; align-items: center;
-            justify-content: center; background: rgba(0, 0, 0, 0.4); transition: all 0.2s ease;
+            border: 2px solid #cbd5e1; display: flex; align-items: center;
+            justify-content: center; background: #fff; transition: all 0.2s ease;
         }
 
         .check-container input { display: none; }
         .check-container input:checked ~ .custom-check { background: var(--accent-green); border-color: var(--accent-green); }
-        .custom-check svg { width: 10px; height: 10px; stroke: #0c0907; stroke-width: 3.5; opacity: 0; }
+        .custom-check svg { width: 10px; height: 10px; stroke: #fff; stroke-width: 3.5; opacity: 0; }
         .check-container input:checked ~ .custom-check svg { opacity: 1; }
 
         .btn-action-group { display: flex; gap: 6px; }
 
         .btn-sm {
-            background: rgba(255, 255, 255, 0.05); color: var(--text-secondary);
-            border: 1px solid var(--border-glass); padding: 6px 11px; border-radius: 10px;
+            background: #f8fafc; color: #596579;
+            border: 1px solid #e6eaf0; padding: 8px 11px; border-radius: 10px;
             font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex;
             align-items: center; gap: 5px; transition: all 0.2s ease;
         }
 
-        .btn-sm:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
-
-        .btn-nav {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(249, 115, 22, 0.18) 100%);
-            color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);
-        }
+        .btn-sm:hover { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+        .btn-nav { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
 
         #mapView {
             display: none; width: 100%; height: 68vh;
-            border-radius: 22px; overflow: hidden;
-            border: 1px solid var(--border-glass);
-            box-shadow: 0 14px 45px rgba(0, 0, 0, 0.6); position: relative;
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid #e5e9f0;
+            box-shadow: 0 10px 30px rgba(23, 32, 51, 0.12); position: relative;
         }
 
         .map-locate-fab {
             position: absolute; bottom: 20px; right: 20px;
             width: 48px; height: 48px; border-radius: 50%;
-            background: var(--surface-card); border: 1px solid var(--border-highlight);
-            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.6); z-index: 1000;
+            background: #fff; border: 1px solid #e5e9f0;
+            color: #344054; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 6px 18px rgba(23, 32, 51, 0.16); z-index: 1000;
             transition: all 0.2s ease;
         }
-        .map-locate-fab:hover { background: var(--primary); border-color: var(--primary); color: #0c0907; }
+        .map-locate-fab:hover { background: var(--primary); color: #fff; }
         .map-locate-fab svg { width: 20px; height: 20px; stroke: currentColor; }
 
         #map { width: 100%; height: 100%; background: #0c0907; }
 
         .user-gps-container { position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
-
         .user-heading-cone {
             position: absolute; width: 0; height: 0;
             border-left: 10px solid transparent; border-right: 10px solid transparent;
             border-bottom: 24px solid rgba(245, 158, 11, 0.45); top: -16px;
             transform-origin: bottom center; pointer-events: none;
         }
-
         .user-gps-dot {
             width: 14px; height: 14px; background: #f59e0b;
             border: 2px solid white; border-radius: 50%;
@@ -339,89 +355,48 @@
         }
 
         .bottom-bar {
-            position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-            width: calc(100% - 32px); max-width: 520px;
-            background: rgba(24, 18, 14, 0.9); backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px); border: 1px solid var(--border-highlight);
-            border-radius: 20px; padding: 12px 18px; display: flex;
+            position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 28px); max-width: 880px;
+            background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px); border: 1px solid #e5e9f0;
+            border-radius: 18px; padding: 12px 16px; display: flex;
             align-items: center; justify-content: space-between;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.7); z-index: 500;
+            box-shadow: 0 12px 35px rgba(23, 32, 51, 0.13); z-index: 500;
         }
 
         .counter-info { display: flex; flex-direction: column; gap: 2px; }
-        .counter-num { font-size: 0.88rem; font-weight: 800; color: var(--text-primary); }
-        .counter-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 700; }
+        .counter-num { font-size: 0.9rem; font-weight: 800; color: #172033; }
+        .counter-label { font-size: 0.65rem; color: #8993a4; font-weight: 700; }
 
-        .btn-group-bottom { display: flex; gap: 8px; }
+        .btn-group-bottom { display: flex; gap: 6px; flex-wrap: wrap; }
 
         .btn-export {
-            background: rgba(16, 185, 129, 0.15); color: var(--accent-green);
-            border: 1px solid rgba(16, 185, 129, 0.3); padding: 7px 13px;
+            background: #ecfdf5; color: #047857;
+            border: 1px solid #ccefe0; padding: 8px 12px;
             border-radius: 12px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
             transition: all 0.2s ease;
         }
-        .btn-export:hover { background: rgba(16, 185, 129, 0.3); color: #fff; }
+        .btn-export:hover { background: #d1fae5; color: #065f46; }
+
+        .btn-json {
+            background: #eff6ff; color: #1d4ed8;
+            border: 1px solid #bfdbfe; padding: 8px 12px;
+            border-radius: 12px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-json:hover { background: #dbeafe; color: #1e40af; }
 
         .btn-reset-small {
-            background: rgba(244, 63, 94, 0.12); color: var(--accent-rose);
-            border: 1px solid rgba(244, 63, 94, 0.3); padding: 7px 13px;
+            background: #fff1f2; color: #be123c;
+            border: 1px solid #ffe0e5; padding: 8px 12px;
             border-radius: 12px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
             transition: all 0.2s ease;
         }
-        .btn-reset-small:hover { background: rgba(244, 63, 94, 0.3); color: #fff; }
-
-        .analytics-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 22px;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-        }
-
-        .analytics-side {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .analytics-side.right {
-            text-align: right;
-            border-left: 1px solid var(--border-glass);
-            padding-left: 16px;
-        }
-
-        .analytics-label {
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .analytics-value {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            font-variant-numeric: tabular-nums;
-            letter-spacing: -0.01em;
-        }
-
-        .analytics-sub {
-            font-size: 0.65rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
+        .btn-reset-small:hover { background: #ffe4e6; color: #9f1239; }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(8, 6, 5, 0.8); backdrop-filter: blur(12px); z-index: 1000;
+            background: rgba(15, 23, 42, 0.48); backdrop-filter: blur(7px); z-index: 1000;
             display: flex; align-items: flex-end; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
@@ -429,274 +404,109 @@
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-card {
-            background: var(--bg-dark); border: 1px solid var(--border-highlight);
-            border-radius: 28px 28px 0 0; width: 100%; max-width: 560px;
-            padding: 24px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #fff; border: 1px solid #e8ebf1;
+            border-radius: 26px 26px 0 0; width: 100%; max-width: 560px;
+            padding: 24px; transform: translateY(100%); transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex; flex-direction: column; gap: 14px; max-height: 85vh; overflow-y: auto;
-            box-shadow: 0 -12px 50px rgba(0,0,0,0.7);
+            box-shadow: 0 -12px 45px rgba(15, 23, 42, 0.16);
         }
 
         .modal-overlay.active .modal-card { transform: translateY(0); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; }
-        .modal-title { font-size: 1.05rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.01em; }
-        .modal-close { background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); width: 32px; height: 32px; border-radius: 50%; color: var(--text-muted); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-        .modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .modal-title { font-size: 1.05rem; font-weight: 800; color: #172033; letter-spacing: -0.01em; }
+        .modal-close { background: #f1f3f7; border: 1px solid #e8ebf1; width: 32px; height: 32px; border-radius: 50%; color: #647084; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .modal-close:hover { background: #e2e8f0; color: #1e293b; }
 
         .plan-options { display: flex; gap: 12px; margin-top: 8px; }
 
         .plan-btn-option {
-            flex: 1; background: var(--surface-card); border: 1px solid var(--border-glass);
+            flex: 1; background: #f8fafc; border: 1px solid #e8ebf1;
             border-radius: 18px; padding: 18px 12px; text-align: center; cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
         }
 
-        .plan-btn-option:hover { border-color: var(--primary); background: rgba(245, 158, 11, 0.1); transform: translateY(-2px); }
-        .plan-btn-num { font-size: 1.3rem; font-weight: 800; color: #fbbf24; }
-        .plan-btn-text { font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px; font-weight: 600; }
+        .plan-btn-option:hover { border-color: #fdba74; background: #fff7ed; transform: translateY(-2px); }
+        .plan-btn-num { font-size: 1.3rem; font-weight: 800; color: #ea580c; }
+        .plan-btn-text { font-size: 0.72rem; color: #647084; margin-top: 4px; font-weight: 600; }
 
         .app-picker-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
 
         .app-opt {
-            background: var(--surface-card); border: 1px solid var(--border-glass);
+            background: #f8fafc; border: 1px solid #e8ebf1;
             border-radius: 16px; padding: 16px 8px; display: flex; flex-direction: column;
             align-items: center; gap: 6px; cursor: pointer; text-decoration: none;
-            color: var(--text-primary); font-size: 0.75rem; font-weight: 700;
+            color: #172033; font-size: 0.75rem; font-weight: 700;
             transition: all 0.2s ease;
         }
-        .app-opt:hover { border-color: var(--primary); background: rgba(245,158,11,0.12); }
+        .app-opt:hover { border-color: #fdba74; background: #fff7ed; }
 
         .map-popup-btn {
             width: 100%; margin-top: 6px; padding: 10px; border-radius: 12px;
-            border: none; background: linear-gradient(135deg, var(--primary) 0%, var(--accent-orange) 100%); color: #0c0907; font-weight: 800;
-            font-size: 0.75rem; cursor: pointer; box-shadow: 0 4px 15px var(--primary-glow);
+            border: none; background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; font-weight: 800;
+            font-size: 0.75rem; cursor: pointer; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2);
             transition: all 0.2s;
         }
-        .map-popup-btn:hover { filter: brightness(1.1); }
+        .map-popup-btn:hover { filter: brightness(1.05); }
 
         .notes-input {
-            width: 100%; height: 95px; background: var(--surface-card);
-            border: 1px solid var(--border-glass); border-radius: 14px; padding: 12px;
-            color: #fff; font-size: 0.85rem; outline: none; resize: none;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            width: 100%; height: 95px; background: #f8fafc;
+            border: 1px solid #e5e9f0; border-radius: 14px; padding: 12px;
+            color: #172033; font-size: 0.85rem; outline: none; resize: none;
         }
-        .notes-input:focus { border-color: var(--primary); }
+        .notes-input:focus { border-color: #fb923c; }
 
         .toast {
             position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-20px);
-            background: rgba(245, 158, 11, 0.95); color: #0c0907;
+            background: #172033; color: #fff;
             padding: 8px 18px; border-radius: 30px; font-weight: 800; font-size: 0.78rem;
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); z-index: 1000;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.2); z-index: 1000;
             opacity: 0; pointer-events: none; transition: all 0.3s ease;
         }
 
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ===== MODERN APP UI REFRESH (functionality preserved) ===== */
-:root {
-  --bg-dark: #f4f6fa;
-  --surface-glass: rgba(255,255,255,.94);
-  --surface-card: #ffffff;
-  --border-glass: #e7eaf0;
-  --border-highlight: rgba(249,115,22,.28);
-  --primary: #f97316;
-  --primary-glow: rgba(249,115,22,.16);
-  --accent-orange: #ea580c;
-  --accent-green: #059669;
-  --accent-green-glow: rgba(5,150,105,.16);
-  --accent-rose: #e11d48;
-  --accent-cyan: #0891b2;
-  --text-primary: #172033;
-  --text-secondary: #647084;
-  --text-muted: #8993a4;
-}
-html { scroll-behavior:smooth; }
-body {
-  background: #f4f6fa;
-  background-image: radial-gradient(circle at 8% 0%,rgba(249,115,22,.08),transparent 28rem),
-                    radial-gradient(circle at 100% 30%,rgba(14,165,233,.045),transparent 30rem);
-  color:var(--text-primary);
-  padding-bottom:112px;
-}
-header {
-  max-width: 100%;
-  padding: 14px max(20px,calc((100vw - 920px)/2));
-  background:rgba(255,255,255,.88);
-  border-bottom:1px solid #e8ebf1;
-  box-shadow:0 4px 22px rgba(24,39,75,.045);
-}
-.header-top { width:100%; max-width:920px; margin:0 auto; }
-.brand { gap:12px; }
-.brand-icon {
-  width:42px;height:42px;border-radius:14px;
-  background:linear-gradient(145deg,#fb923c,#ea580c);
-  box-shadow:0 7px 18px rgba(234,88,12,.22);
-}
-.brand-icon svg { stroke:#fff; }
-h1 {
-  background:none;-webkit-text-fill-color:initial;color:#172033;
-  font-size:1.08rem;letter-spacing:-.035em;
-}
-.btn-header {
-  background:#fff;color:#475569;border:1px solid #e5e9f0;
-  padding:8px 12px;border-radius:12px;font-size:.73rem;
-  box-shadow:0 2px 5px rgba(15,23,42,.035);
-}
-.btn-header:hover {background:#fff7ed;border-color:#fdba74;color:#c2410c;transform:translateY(-1px);}
-.btn-plan {background:#fff7ed;color:#c2410c;border-color:#fed7aa;}
-.gps-status-pill {background:#f8fafc;border-color:#e8edf3;color:#647084;}
-.status-dot {background:#f43f5e;}
-.container {max-width:920px;padding:22px 20px;gap:16px;}
-.route-banner {
-  background:linear-gradient(120deg,#fff7ed,#fff);
-  border:1px solid #fed7aa;border-radius:18px;padding:14px 16px;
-  box-shadow:0 5px 18px rgba(194,65,12,.06);
-}
-.route-banner-title {color:#c2410c;}
-.route-banner-sub {color:#647084;}
-.glass-card-compact,.analytics-card {
-  background:rgba(255,255,255,.96);backdrop-filter:blur(18px);
-  border:1px solid #e8ebf1;border-radius:20px;padding:17px;
-  box-shadow:0 8px 28px rgba(23,32,51,.055);
-}
-.analytics-card {padding:18px 20px;}
-.analytics-label {color:#8993a4;font-size:.66rem;}
-.analytics-value {color:#172033;font-size:1.18rem;}
-.analytics-sub {color:#ea580c;}
-.analytics-side.right {border-left-color:#edf0f4;}
-.view-toggle-bar {background:#f1f3f7;border:1px solid #e9edf3;border-radius:13px;}
-.tab-btn {color:#7b8494;padding:10px 8px;border-radius:10px;}
-.tab-btn.active {
-  color:#fff;background:linear-gradient(135deg,#f97316,#ea580c);
-  box-shadow:0 5px 12px rgba(234,88,12,.2);
-}
-.filter-row {gap:12px;min-width:0;}
-.filter-label {color:#7b8494;min-width:54px;}
-.filter-chips {padding:2px 0;}
-.chip {
-  background:#f8fafc;border:1px solid #e8edf3;color:#596579;
-  padding:7px 12px;border-radius:999px;
-}
-.chip:hover {border-color:#fdba74;background:#fff7ed;color:#c2410c;}
-.chip.active {background:#fff0e5;border-color:#fdba74;color:#c2410c;box-shadow:none;}
-.chip.target-chip.active {background:#ea580c;color:#fff;border-color:#ea580c;}
-.search-input {
-  background:#fff;border:1px solid #e5e9f0;border-radius:14px;
-  color:#172033;box-shadow:0 3px 12px rgba(23,32,51,.035);
-  padding-top:13px;padding-bottom:13px;
-}
-.search-input::placeholder {color:#a0a8b5;}
-.search-input:focus {border-color:#fb923c;box-shadow:0 0 0 4px rgba(249,115,22,.11);}
-.search-icon {stroke:#98a2b3;}
-#retailerList {display:grid;grid-template-columns:1fr;gap:11px;}
-.outlet-card {
-  background:#fff;border:1px solid #e8ebf1;border-radius:17px;
-  padding:17px;margin:0;box-shadow:0 4px 15px rgba(23,32,51,.045);
-  animation:cardEnter .32s ease both;
-}
-.outlet-card::before {width:4px;background:#f97316;}
-.outlet-card.visited {background:#f3fbf7;border-color:#ccefe0;}
-.outlet-card.visited::before {background:#059669;}
-.outlet-card.target-planned {border-color:#fdba74;background:#fffaf5;}
-.outlet-code {color:#c2410c;font-size:1.02rem;}
-.rso-text {color:#647084;}
-.rso-text strong {color:#344054;}
-.dist-pill {background:#ecfdf5;border-color:#ccefe0;color:#047857;}
-.status-y {background:#ecfdf5;color:#047857;border-color:#ccefe0;}
-.status-n {background:#fff1f2;color:#be123c;border-color:#ffe0e5;}
-.card-footer {border-top-color:#edf0f4;}
-.check-container {color:#596579;}
-.custom-check {background:#fff;border-color:#cbd5e1;}
-.custom-check svg {stroke:#fff;}
-.btn-sm {
-  background:#f8fafc;color:#596579;border:1px solid #e6eaf0;
-  border-radius:10px;padding:8px 11px;
-}
-.btn-sm:hover {background:#fff7ed;color:#c2410c;border-color:#fed7aa;}
-.btn-nav {background:#fff7ed;color:#c2410c;border-color:#fed7aa;}
-#mapView {
-  border:1px solid #e5e9f0;border-radius:20px;
-  box-shadow:0 10px 30px rgba(23,32,51,.12);
-}
-.map-locate-fab {
-  background:#fff;border:1px solid #e5e9f0;color:#344054;
-  box-shadow:0 6px 18px rgba(23,32,51,.16);
-}
-.map-locate-fab:hover {background:#f97316;color:#fff;}
-.bottom-bar {
-  max-width:880px;width:calc(100% - 28px);bottom:12px;
-  background:rgba(255,255,255,.94);border:1px solid #e5e9f0;
-  border-radius:18px;padding:12px 16px;
-  box-shadow:0 12px 35px rgba(23,32,51,.13);
-  backdrop-filter:blur(22px);
-}
-.counter-num {color:#172033;font-size:.9rem;}
-.counter-label {color:#8993a4;}
-.btn-export {background:#ecfdf5;color:#047857;border-color:#ccefe0;padding:8px 12px;}
-.btn-export:hover {background:#d1fae5;color:#065f46;}
-.btn-reset-small {background:#fff1f2;color:#be123c;border-color:#ffe0e5;padding:8px 12px;}
-.btn-reset-small:hover {background:#ffe4e6;color:#9f1239;}
-.modal-overlay {background:rgba(15,23,42,.48);backdrop-filter:blur(7px);}
-.modal-card {
-  background:#fff;border:1px solid #e8ebf1;border-radius:26px 26px 0 0;
-  box-shadow:0 -12px 45px rgba(15,23,42,.16);
-}
-.modal-title {color:#172033;}
-.modal-close {background:#f1f3f7;border-color:#e8ebf1;color:#647084;}
-.plan-btn-option,.app-opt {
-  background:#f8fafc;border:1px solid #e8ebf1;box-shadow:none;color:#172033;
-}
-.plan-btn-option:hover,.app-opt:hover {background:#fff7ed;border-color:#fdba74;}
-.plan-btn-num {color:#ea580c;}
-.plan-btn-text {color:#647084;}
-.notes-input {background:#f8fafc;border-color:#e5e9f0;color:#172033;box-shadow:none;}
-.notes-input:focus {border-color:#fb923c;}
-.toast {background:#172033;color:#fff;box-shadow:0 8px 25px rgba(15,23,42,.2);}
-.map-popup-btn {background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip {border-radius:13px;}
-button, .chip, .tab-btn, .app-opt, .plan-btn-option, .outlet-card, .map-locate-fab {
-  -webkit-tap-highlight-color:transparent;
-}
-button:active,.chip:active,.app-opt:active,.plan-btn-option:active {transform:scale(.97);}
-button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
-  outline:3px solid rgba(249,115,22,.25);outline-offset:2px;
-}
-@keyframes cardEnter {from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
-@keyframes softFade {from{opacity:0}to{opacity:1}}
-#listView,#mapView {animation:softFade .25s ease;}
-.modal-overlay.active .modal-card {transition:transform .38s cubic-bezier(.2,.8,.2,1);}
-@media (min-width:700px) {
-  header {padding-left:24px;padding-right:24px;}
-  .container {padding-top:26px;}
-  #retailerList {grid-template-columns:repeat(2,minmax(0,1fr));}
-  .outlet-card {height:100%;}
-  #mapView {height:72vh;}
-  .modal-card {border-radius:26px;align-self:center;margin:20px;}
-  .modal-overlay {align-items:center;}
-}
-@media (max-width:560px) {
-  header {padding:12px 14px;}
-  .header-top {gap:8px;}
-  .brand {gap:8px;min-width:0;}
-  .brand-icon {width:36px;height:36px;border-radius:12px;}
-  h1 {font-size:.94rem;white-space:nowrap;}
-  .header-actions {gap:5px;flex-wrap:wrap;justify-content:flex-end;}
-  .btn-header {padding:7px 8px;font-size:.67rem;}
-  .gps-status-pill {padding:5px 7px;font-size:.65rem;}
-  .container {padding:15px 13px;gap:13px;}
-  .analytics-card {padding:14px 13px;gap:8px;}
-  .analytics-value {font-size:1rem;}
-  .filter-row {align-items:flex-start;flex-direction:column;gap:7px;}
-  .filter-label {min-width:0;}
-  #rsoFilter {width:100%!important;}
-  .bottom-bar {width:calc(100% - 20px);padding:10px 11px;bottom:9px;}
-  .btn-group-bottom {gap:5px;}
-  .btn-export,.btn-reset-small {padding:8px 9px;font-size:.66rem;}
-}
-@media (prefers-reduced-motion:reduce) {
-  *,*::before,*::after {scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}
-}
+        button, .chip, .tab-btn, .app-opt, .plan-btn-option, .outlet-card, .map-locate-fab {
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:active, .chip:active, .app-opt:active, .plan-btn-option:active { transform: scale(0.97); }
 
+        @keyframes cardEnter { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes softFade { from { opacity: 0; } to { opacity: 1; } }
+        #listView, #mapView { animation: softFade 0.25s ease; }
+
+        @media (min-width: 700px) {
+            header { padding-left: 24px; padding-right: 24px; }
+            .container { padding-top: 26px; }
+            #retailerList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .outlet-card { height: 100%; }
+            #mapView { height: 72vh; }
+            .modal-card { border-radius: 26px; align-self: center; margin: 20px; }
+            .modal-overlay { align-items: center; }
+        }
+
+        @media (max-width: 560px) {
+            header { padding: 12px 14px; }
+            .header-top { gap: 8px; }
+            .brand { gap: 8px; min-width: 0; }
+            .brand-icon { width: 36px; height: 36px; border-radius: 12px; }
+            h1 { font-size: 0.94rem; white-space: nowrap; }
+            .header-actions { gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+            .btn-header { padding: 7px 8px; font-size: 0.67rem; }
+            .gps-status-pill { padding: 5px 7px; font-size: 0.65rem; }
+            .container { padding: 15px 13px; gap: 13px; }
+            .analytics-card { padding: 14px 13px; gap: 8px; }
+            .analytics-value { font-size: 1rem; }
+            .filter-row { align-items: flex-start; flex-direction: column; gap: 7px; }
+            .filter-label { min-width: 0; }
+            #rsoFilter { width: 100%!important; }
+            .bottom-bar { width: calc(100% - 20px); padding: 10px 11px; bottom: 9px; }
+            .btn-group-bottom { gap: 5px; }
+            .btn-export, .btn-json, .btn-reset-small { padding: 8px 9px; font-size: 0.66rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto!important; animation-duration: 0.01ms!important; transition-duration: 0.01ms!important; }
+        }
     </style>
 </head>
 <body>
@@ -738,7 +548,7 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
             <span class="route-banner-sub">Optimized Status 'Y' stores nearby</span>
         </div>
         <div class="route-banner-actions">
-            <button class="btn-sm" style="background: var(--primary); color:#0c0907; border:none; font-weight:800;" onclick="drawFullTargetRoute()">Draw Route</button>
+            <button class="btn-sm" style="background: var(--primary); color:#fff; border:none; font-weight:800;" onclick="drawFullTargetRoute()">Draw Route</button>
             <button class="btn-sm" onclick="clearTargetPlan()">Clear</button>
         </div>
     </div>
@@ -807,8 +617,8 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
     <div id="listView">
         <div id="retailerList">
             <div class="empty-card" style="text-align: center; padding: 36px 16px; background: var(--surface-glass); border: 1px dashed var(--border-glass); border-radius: 22px;">
-                <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Automatically loading retailers from repository...</p>
-                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Please hold on a second.</p>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Syncing retailers from repository...</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Please wait a moment.</p>
             </div>
         </div>
     </div>
@@ -828,6 +638,7 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
     </div>
     <div class="btn-group-bottom">
         <button class="btn-export" onclick="exportVisitReport()">Export CSV</button>
+        <button class="btn-json" onclick="exportMonthlyJSONBackup()">JSON Backup</button>
         <button class="btn-reset-small" onclick="clearVisitHistory()">Reset Month</button>
     </div>
 </div>
@@ -865,15 +676,15 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         <p style="font-size:0.75rem; color:var(--text-secondary);" id="navModalSub">Select preferred map provider:</p>
         <div class="app-picker-grid">
             <a id="gmapsLink" target="_blank" class="app-opt">
-                <svg width="20" height="20" fill="none" stroke="#f59e0b" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                <svg width="20" height="20" fill="none" stroke="#ea580c" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                 Google
             </a>
             <a id="wazeLink" target="_blank" class="app-opt">
-                <svg width="20" height="20" fill="none" stroke="#38bdf8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <svg width="20" height="20" fill="none" stroke="#0284c7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 Waze
             </a>
             <a id="appleLink" target="_blank" class="app-opt">
-                <svg width="20" height="20" fill="none" stroke="#a855f7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                <svg width="20" height="20" fill="none" stroke="#9333ea" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                 Apple
             </a>
         </div>
@@ -890,7 +701,7 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         </div>
         <textarea id="noteInput" class="notes-input" placeholder="Type visit details, order notes..."></textarea>
         <div style="display:flex; gap:10px; align-items:center;">
-            <label class="btn-sm" style="flex:1; justify-content:center; cursor:pointer; padding: 12px; background: rgba(245,158,11,0.1); color:#fbbf24; border-color:rgba(245,158,11,0.3);">
+            <label class="btn-sm" style="flex:1; justify-content:center; cursor:pointer; padding: 12px; background: #fff7ed; color:#c2410c; border-color:#fed7aa;">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 Watermarked Photo
                 <input type="file" id="photoInput" accept="image/*" capture="environment" onchange="handleWatermarkedPhotoUpload(event)">
@@ -911,7 +722,7 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
 <script>
     if ('serviceWorker' in navigator) {
         const swCode = `
-            const CACHE_NAME = 'outlet-ultra-v6';
+            const CACHE_NAME = 'outlet-ultra-v7';
             self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['/']))));
             self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
         `;
@@ -919,23 +730,9 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
     }
 
-    let db;
-    const dbReq = indexedDB.open("OutletUltraDB", 2);
-    dbReq.onupgradeneeded = e => {
-        db = e.target.result;
-        if (!db.objectStoreNames.contains("outlets")) {
-            db.createObjectStore("outlets", { keyPath: "code" });
-        }
-    };
-    dbReq.onsuccess = e => {
-        db = e.target.result;
-        loadOutletsFromStorage();
-    };
+    const GITHUB_CSV_URL = "https://raw.githubusercontent.com/tanjilahsan64-ux/Route-Wise-Outlet/refs/heads/main/retailers.csv";
 
-    if (navigator.storage && navigator.storage.persist) {
-        navigator.storage.persist();
-    }
-
+    let db = null;
     let retailers = [];
     let plannedTargetCodes = [];
     let currentLat = null, currentLon = null, currentAccuracy = 0, currentHeading = 0;
@@ -944,73 +741,86 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
     let selectedRSO = 'ALL';
     let activeView = 'list';
 
-    // Monthly visit history is kept separately from the retailer CSV/database.
-    const VISIT_STORAGE_PREFIX = 'outlet_ultra_visits_';
-    function currentVisitMonth() {
-        const d = new Date();
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-    }
-    function visitStorageKey() { return VISIT_STORAGE_PREFIX + currentVisitMonth(); }
-    function readVisitHistory() {
-        try { return JSON.parse(localStorage.getItem(visitStorageKey()) || '{}') || {}; }
-        catch (e) { return {}; }
-    }
-    function saveVisitHistory() {
-        const history = {};
-        retailers.forEach(r => {
-            if (r.visited) history[r.code] = { visited: true, visitedAt: r.visitedAt || null };
-        });
-        try { localStorage.setItem(visitStorageKey(), JSON.stringify(history)); }
-        catch (e) { showToast('Could not save visit history: browser storage full'); }
-    }
-    function applyVisitHistory() {
-        const history = readVisitHistory();
-        retailers.forEach(r => {
-            const saved = history[r.code];
-            r.visited = !!(saved && saved.visited);
-            r.visitedAt = r.visited ? (saved.visitedAt || null) : null;
-        });
-    }
-    function refreshRSOFilter() {
-        const select = document.getElementById('rsoFilter');
-        if (!select) return;
-        const rsos = [...new Set(retailers.map(r => String(r.rsoCode || '').trim()).filter(v => v && v !== 'N/A'))]
-            .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-        select.innerHTML = '<option value="ALL">All RSOs</option>' +
-            rsos.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
-        if (!rsos.includes(selectedRSO)) selectedRSO = 'ALL';
-        select.value = selectedRSO;
-    }
-    function setRSOFilter(value) {
-        selectedRSO = value || 'ALL';
-        updateNearbyList();
-        updateCounters();
-        if (activeView === 'map') updateMapView();
-    }
-
     let map = null, userMarker = null, userAccuracyCircle = null, storeClusterLayer = null;
     let radiusCircle = null; 
     let activePopupMarker = null, popupTimer = null, osrmPolyline = null;
     let activeNoteStoreCode = null, tempPhotoBase64 = null;
 
-    const GITHUB_CSV_URL = "https://raw.githubusercontent.com/tanjilahsan64-ux/Route-Wise-Outlet/refs/heads/main/retailers.csv";
+    // 1. Visit History Memory (Stored separately from IndexedDB master retailer data)
+    const VISIT_STORAGE_PREFIX = 'outlet_ultra_visits_';
+    function getCurrentMonthKey() {
+        const d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
 
-    function loadOutletsFromStorage() {
+    function getVisitStorageKey() {
+        return VISIT_STORAGE_PREFIX + getCurrentMonthKey();
+    }
+
+    function readVisitHistory() {
         try {
-            const backup = localStorage.getItem("outlet_ultra_backup");
-            if (backup) {
-                const parsed = JSON.parse(backup);
-                if (parsed && parsed.length > 0) {
-                    retailers = parsed;
-                    applyVisitHistory();
-                    refreshRSOFilter();
-                    updateCounters();
-                    updateNearbyList();
-                    updateAnalyticsDisplay();
-                }
-            }
-        } catch(e) {}
+            return JSON.parse(localStorage.getItem(getVisitStorageKey()) || '{}') || {};
+        } catch (e) {
+            return {};
+        }
+    }
 
+    function saveVisitHistory() {
+        const history = {};
+        retailers.forEach(r => {
+            if (r.visited) {
+                history[r.code] = {
+                    visited: true,
+                    visitedAt: r.visitedAt || new Date().toISOString(),
+                    notes: r.notes || '',
+                    photo: r.photo || null
+                };
+            }
+        });
+        try {
+            localStorage.setItem(getVisitStorageKey(), JSON.stringify(history));
+        } catch (e) {
+            showToast('Unable to persist visit history in storage');
+        }
+    }
+
+    function applyVisitHistory() {
+        const history = readVisitHistory();
+        retailers.forEach(r => {
+            const saved = history[r.code];
+            if (saved && saved.visited) {
+                r.visited = true;
+                r.visitedAt = saved.visitedAt || r.visitedAt || null;
+                if (saved.notes) r.notes = saved.notes;
+                if (saved.photo) r.photo = saved.photo;
+            } else {
+                r.visited = false;
+                r.visitedAt = null;
+            }
+        });
+    }
+
+    // 2. Local Database Initialization (IndexedDB)
+    const dbReq = indexedDB.open("OutletUltraDB", 3);
+    dbReq.onupgradeneeded = e => {
+        db = e.target.result;
+        if (!db.objectStoreNames.contains("outlets")) {
+            db.createObjectStore("outlets", { keyPath: "code" });
+        }
+    };
+    dbReq.onsuccess = e => {
+        db = e.target.result;
+        loadOutletsFromIndexedDB();
+    };
+    dbReq.onerror = () => {
+        fetchDatabaseFromGitHub();
+    };
+
+    if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist();
+    }
+
+    function loadOutletsFromIndexedDB() {
         if (!db) {
             fetchDatabaseFromGitHub();
             return;
@@ -1019,48 +829,52 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         const tx = db.transaction("outlets", "readonly");
         const store = tx.objectStore("outlets");
         const req = store.getAll();
+
         req.onsuccess = () => {
-            const data = req.result || [];
-            if (data.length > 0) {
-                if (data.length >= retailers.length) {
-                    retailers = data;
-                }
+            const cached = req.result || [];
+            if (cached.length > 0) {
+                retailers = cached;
+                applyVisitHistory();
+                refreshRSOFilter();
                 updateCounters();
                 updateNearbyList();
                 updateAnalyticsDisplay();
-                // Automatically fetch latest updates from GitHub in the background
+                
+                // Automatic Retailer Sync: Sync with GitHub repository every time app opens
                 fetchDatabaseFromGitHub(true);
             } else {
-                fetchDatabaseFromGitHub();
+                fetchDatabaseFromGitHub(false);
             }
         };
+
         req.onerror = () => {
-            fetchDatabaseFromGitHub();
+            fetchDatabaseFromGitHub(false);
         };
     }
 
+    // 3. Automatic GitHub Sync
     function fetchDatabaseFromGitHub(isBackground = false) {
-        if (!isBackground) showToast("Fetching retailers from repository...");
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(GITHUB_CSV_URL)}`;
-        
+        if (!isBackground) showToast("Syncing retailers from repository...");
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(GITHUB_CSV_URL)}&timestamp=${Date.now()}`;
+
         fetch(proxyUrl)
             .then(res => {
-                if (!res.ok) throw new Error("Network response was not ok");
+                if (!res.ok) throw new Error("HTTP error " + res.status);
                 return res.text();
             })
             .then(text => {
                 parseCSV(text, true);
-                if (!isBackground) showToast("Successfully loaded retailers!");
+                if (!isBackground) showToast("Retailers synced with repository!");
             })
             .catch(() => {
                 fetch(GITHUB_CSV_URL)
                     .then(res => res.text())
                     .then(text => {
                         parseCSV(text, true);
-                        if (!isBackground) showToast("Successfully loaded retailers!");
+                        if (!isBackground) showToast("Retailers synced with repository!");
                     })
                     .catch(() => {
-                        if (!isBackground) showToast("Network offline. Loaded from local cache.");
+                        if (!isBackground) showToast("Offline mode. Loaded from IndexedDB cache.");
                     });
             });
     }
@@ -1074,9 +888,24 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
                 retailers.forEach(item => store.put(item));
             } catch(e) {}
         }
-        try {
-            localStorage.setItem("outlet_ultra_backup", JSON.stringify(retailers));
-        } catch(e) {}
+    }
+
+    function refreshRSOFilter() {
+        const select = document.getElementById('rsoFilter');
+        if (!select) return;
+        const rsos = [...new Set(retailers.map(r => String(r.rsoCode || '').trim()).filter(v => v && v !== 'N/A'))]
+            .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+        select.innerHTML = '<option value="ALL">All RSOs</option>' +
+            rsos.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+        if (!rsos.includes(selectedRSO)) selectedRSO = 'ALL';
+        select.value = selectedRSO;
+    }
+
+    function setRSOFilter(value) {
+        selectedRSO = value || 'ALL';
+        updateNearbyList();
+        updateCounters();
+        if (activeView === 'map') updateMapView();
     }
 
     function switchView(view) {
@@ -1308,8 +1137,8 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         let latIdx = headers.findIndex(h => h.includes('lat'));
         let lonIdx = headers.findIndex(h => h.includes('lon') || h.includes('lng'));
 
-        const existingMap = new Map();
-        retailers.forEach(r => existingMap.set(r.code, { notes: r.notes, photo: r.photo }));
+        const existingNotesMap = new Map();
+        retailers.forEach(r => existingNotesMap.set(r.code, { notes: r.notes, photo: r.photo }));
         const visitHistory = readVisitHistory();
 
         const parsedRetailers = [];
@@ -1319,7 +1148,6 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
             const cols = parseCSVLine(line);
             if (cols.length < 3) continue;
 
-            // Repository format: first column Retail Code, second column RSO Code.
             let retailerCode = (cols[0] || '').trim().toUpperCase();
             if (!/^R\w+$/i.test(retailerCode)) {
                 const codeIdx = headers.findIndex(h => h.includes('retail') && (h.includes('code') || h.includes('id')));
@@ -1345,8 +1173,9 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
             }
 
             if (!isNaN(lat) && !isNaN(lon) && retailerCode) {
-                const prev = existingMap.get(retailerCode) || {};
+                const prev = existingNotesMap.get(retailerCode) || {};
                 const savedVisit = visitHistory[retailerCode];
+                
                 parsedRetailers.push({
                     code: retailerCode,
                     rsoCode: rsoCode,
@@ -1355,8 +1184,8 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
                     status: statusVal,
                     visited: !!(savedVisit && savedVisit.visited),
                     visitedAt: savedVisit && savedVisit.visitedAt ? savedVisit.visitedAt : null,
-                    notes: prev.notes || '',
-                    photo: prev.photo || null
+                    notes: (savedVisit && savedVisit.notes) || prev.notes || '',
+                    photo: (savedVisit && savedVisit.photo) || prev.photo || null
                 });
             }
         }
@@ -1364,7 +1193,6 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         retailers = parsedRetailers;
         refreshRSOFilter();
         if (overwriteStorage) saveAllOutletsToDB();
-        saveVisitHistory();
         updateCounters();
         updateNearbyList();
         updateAnalyticsDisplay();
@@ -1571,21 +1399,21 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         storeClusterLayer.clearLayers();
 
         stores.forEach(item => {
-            let pinColor = item.visited ? '#10b981' : '#f43f5e';
-            if (item.isPlanned && !item.visited) pinColor = '#f59e0b';
+            let pinColor = item.visited ? '#059669' : '#e11d48';
+            if (item.isPlanned && !item.visited) pinColor = '#ea580c';
 
             const customPin = L.divIcon({
                 className: 'store-pin',
-                html: `<div style="background:${pinColor};width:24px;height:24px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,0.5);font-size:10px;font-weight:800;color:#fff;">${item.isPlanned ? item.planOrder : (item.visited ? '✓' : '')}</div>`,
+                html: `<div style="background:${pinColor};width:24px;height:24px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,0.3);font-size:10px;font-weight:800;color:#fff;">${item.isPlanned ? item.planOrder : (item.visited ? '✓' : '')}</div>`,
                 iconSize: [24, 24]
             });
 
             const marker = L.marker([item.lat, item.lon], { icon: customPin });
             const popupContent = `
-                <div style="font-size:0.82rem; font-weight:800; color:#1e293b; margin-bottom:2px;">${escapeHtml(item.code)} ${item.isPlanned ? `<span style="color:#f59e0b;">(Stop #${item.planOrder})</span>` : ''}</div>
+                <div style="font-size:0.82rem; font-weight:800; color:#1e293b; margin-bottom:2px;">${escapeHtml(item.code)} ${item.isPlanned ? `<span style="color:#ea580c;">(Stop #${item.planOrder})</span>` : ''}</div>
                 <div style="font-size:0.72rem; color:#64748b; margin-bottom:6px;">RSO: <strong>${escapeHtml(item.rsoCode)}</strong></div>
                 <button class="map-popup-btn" onclick="toggleVisited('${escapeHtml(item.code)}')">${item.visited ? 'Unmark Visited' : 'Mark Visited'}</button>
-                <button class="map-popup-btn" style="background:#06b6d4; color:#fff;" onclick="openNavModal(${item.lat}, ${item.lon}, '${escapeHtml(item.code)}')">Directions</button>
+                <button class="map-popup-btn" style="background:#0891b2; color:#fff;" onclick="openNavModal(${item.lat}, ${item.lon}, '${escapeHtml(item.code)}')">Directions</button>
             `;
             marker.bindPopup(popupContent);
             storeClusterLayer.addLayer(marker);
@@ -1762,6 +1590,7 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         if (item) {
             item.notes = document.getElementById('noteInput').value;
             item.photo = tempPhotoBase64;
+            saveVisitHistory();
             saveAllOutletsToDB();
             showToast("Details Saved");
             closeModal('notesModal');
@@ -1785,26 +1614,52 @@ button:focus-visible,.chip:focus-visible,.tab-btn:focus-visible {
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `Outlet_Report_${new Date().toISOString().slice(0,10)}.csv`);
+        link.setAttribute("download", `Outlet_Report_${getCurrentMonthKey()}_${new Date().toISOString().slice(0,10)}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
+    // 4. Monthly JSON Backup
+    function exportMonthlyJSONBackup() {
+        const visits = readVisitHistory();
+        const exportPayload = {
+            monthKey: getCurrentMonthKey(),
+            exportTimestamp: new Date().toISOString(),
+            totalVisited: Object.keys(visits).length,
+            visitRecords: visits
+        };
+
+        const jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
+        const link = document.createElement("a");
+        link.setAttribute("href", jsonStr);
+        link.setAttribute("download", `Outlet_Visits_Backup_${getCurrentMonthKey()}.json`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("Monthly JSON Backup Downloaded");
+    }
+
+    // 5. Monthly Reset
     function clearVisitHistory() {
-        if (confirm("Reset all check-ins for the new month? (Store data stays saved)")) {
+        if (confirm(`Reset all visit records for ${getCurrentMonthKey()}? Master retailer database will NOT be deleted.`)) {
             retailers.forEach(item => {
                 item.visited = false;
                 item.visitedAt = null;
+                item.notes = '';
+                item.photo = null;
             });
-            try { localStorage.removeItem(visitStorageKey()); } catch (e) {}
+            try {
+                localStorage.removeItem(getVisitStorageKey());
+            } catch (e) {}
+            
             plannedTargetCodes = [];
             saveAllOutletsToDB();
             if (osrmPolyline && map) map.removeLayer(osrmPolyline);
             updateCounters();
             updateRouteBanner();
             updateAnalyticsDisplay();
-            showToast("Month reset completed");
+            showToast("Monthly visit history reset complete");
             activePopupMarker = null;
             updateNearbyList();
             if (activeView === 'map') updateMapView();
